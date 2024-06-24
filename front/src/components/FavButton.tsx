@@ -1,4 +1,4 @@
-import { useUser } from '@/contexts/UserContext'
+mimport { useUser } from '@/contexts/UserContext'
 import { URL_BACK, addFavorite, removeFavorite } from '@/services/api'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
@@ -48,14 +48,14 @@ export default function FavButton({
   if (favFilmes && favFilmes.some(fav => (fav.title == title))) {
     return (
       <button className='bg-transparent' >
-        <FaHeart className='fill-red-500' onClick={ () => addFavorite(Email, movieId, title, voteAverage, releaseYear, originalLanguage, posterPath) }/>
+        <FaHeart className='fill-red-500' onClick={ () => removeFavorite(Email, movieId) }/>
       </button>
     )
 
   } else {
     return (
       <button className='bg-transparent' >
-        <FaRegHeart className='fill-red-500' onClick={ () => removeFavorite(Email, movieId) }/>
+        <FaRegHeart className='fill-red-500' onClick={ () => addFavorite(Email, movieId, title, voteAverage, releaseYear, originalLanguage, posterPath) }/>
       </button>
     )
   }

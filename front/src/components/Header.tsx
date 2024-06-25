@@ -15,30 +15,29 @@ import Text from './Text'
 
 export default function Header() {
   const { HMenuPrincipal, toggleHMenuPrincipal } = useHMenu()
-  const { Email } = useUser()
+  const { LoggedMail } = useUser()
 
   return (
     <div className='
       z-10 fixed flex flex-col
-      w-screen h-fit p-[1rem] 
+      w-screen h-fit p-[1rem] gap-[2rem]
       bg-black
       md:justify-start
     '>
 
       <div className='
         flex items-center justify-between items-end
-        w-full h-fit px-[4%] gap-[1rem]
-        md:flex-row md:pr-[4rem] md:pl-0
+        w-full h-fit gap-[1rem]
+        md:flex-row md:pr-[4rem] md:pl-0 md:justify-start
       '>
         <Text as='h1' className='w-min h-min font-extrabold'>
           Cine<span className='text-red-700'>Glota</span>
         </Text>
 
-        {Email && (<FavFilter />)}
+        <FavFilter />
+        <HMButton />
 
         <Idiomas desktop />
-
-        <HMButton />
 
         <HMenu className={clsx( HMenuPrincipal && 'opacity-100 transition-all duration-1000' )} />
       </div>  
@@ -46,7 +45,7 @@ export default function Header() {
       <div className='
         justify-self-end flex flex-col justify-between items-end
         w-full h-fit px-[4%] gap-[1rem]
-        md:flex-row md:pr-[4rem] md:pl-0
+        md:flex-row md:pr-[8rem] md:pl-0
       '>
         <NavBar desktop />
         <SearchBar />

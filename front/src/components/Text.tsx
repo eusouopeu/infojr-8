@@ -13,7 +13,7 @@ export default function Text({
 
   return (
     <Comp className={clsx('font-bold truncate',
-      tipo === 'h1' && 'text-4xl md:text-4xl',
+      tipo === 'h1' && 'text-2xl md:text-4xl',
       tipo === 'h2' && 'text-2xl md:text-lg',
       tipo === 'h3' && 'text-lg md:text-base',
       tipo === 'p' && 'text-base md:text-sm',

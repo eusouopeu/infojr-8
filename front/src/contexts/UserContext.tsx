@@ -7,10 +7,12 @@ import { UserContextType, ContextProps } from '@/types'
 
 // Estado inicial
 const initialState: UserContextType = {
-  Email: null,
-  Favoritos: false,
-  filterEmail: (e: any) => {},
-  filterFavoritos: () => {}
+  LoggedMail: null,
+  FavBoolean: false,
+  FavArray: [],
+  changeLoggedMail: (e: any) => {},
+  filterFavBoolean: () => {},
+  setFavArray: () => {}
 }
 
 // Criando o contexto
@@ -19,21 +21,26 @@ const UserContext = createContext<UserContextType>(initialState)
 // Criando o provider
 export const UserProvider: React.FC<ContextProps> = ({ children }) => {
 
-  const [Email, setEmail] = useState(null)
-  const [Favoritos, setFavoritos] = useState(false)
+  const [LoggedMail, setLoggedMail] = useState(() => {
+    const savedLoggedMail = localStorage.getItem('LoggedMail')
+    return savedLoggedMail ? JSON.parse(savedLoggedMail) : null
+  })
+  const [FavBoolean, setFavBoolean] = useState(false)
+  const [FavArray, setFavArray] = useState<any[]>([])
 
-  const filterEmail = (e: any) => {
-    setEmail(e)
+  const changeLoggedMail = (item: string) => {
+    setLoggedMail(item)
+    localStorage.setItem('LoggedMail', JSON.stringify(item))
   }
 
-  const filterFavoritos = () => {
-    if (Email != null) {
-      setFavoritos(!Favoritos)
+  const filterFavBoolean = () => {
+    if (LoggedMail != null) {
+      setFavBoolean(!FavBoolean)
     }
   }
 
   return (
-    <UserContext.Provider value={{ Email, Favoritos, filterEmail, filterFavoritos}}>
+    <UserContext.Provider value={{ LoggedMail, FavBoolean, FavArray, changeLoggedMail, filterFavBoolean, setFavArray }}>
       {children}
     </UserContext.Provider>
   )

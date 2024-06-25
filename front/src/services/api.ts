@@ -6,20 +6,6 @@ export const TMDB_IMG = `https://image.tmdb.org/t/p/w500`
 export const TMDB_KEY = `e68628f5ff1c3314cd74c0ddba7a5819`
 
 //-- FUNCTIONS
-export const fetchFavorites = (
-  email: string, 
-  setFilmes: FilterAny
-) => {
-  axios.get(`${URL_BACK}/favorite_movies/${email}`)
-    .then(response => {
-      setFilmes(response.data)
-      console.log('Filmes favoritos recuperados com sucesso!')
-    })
-    .catch(error => {
-      console.error('Erro ao recuperar filmes favoritos: ', error)
-    })
-}
-
 export const fetchMoviesByTitle = async (
   title: string,
   setFilmes: FilterAny
@@ -41,8 +27,8 @@ export const fetchMoviesByGenre = async (
   language: string,
   setFilmes: FilterAny
 ) => {
-  axios.get(`${URL_BACK}/movie_by_genre_and_language`, {
-    params: { genre, language }
+  axios.get(`${URL_BACK}/movie_by_genre`, {
+    params: { genre: genre, language: language }
   })
     .then(response => {
       setFilmes(response.data.results)
@@ -59,22 +45,33 @@ export const addFavorite = async (
   movieId: number,
   title: string,
   voteAverage: number,
-  releaseYear: number,
+  releaseDate: number,
   originalLanguage: string,
-  posterPath: any
+  posterPath: any,
+  setFavArray: FilterAny
 ) => {
   if (email != null) {
+    console.log( `
+      ${email},	
+      ${movieId},
+      ${title},
+      ${voteAverage},
+      ${releaseDate},
+      ${originalLanguage},
+      ${posterPath}
+    ` )
     axios.post(`${URL_BACK}/add_favorite`, {
       email: email,
       movie_id: movieId,
       title: title,
       vote_average: voteAverage,
-      release_year: releaseYear,
+      release_date: releaseDate,
       original_language: originalLanguage,
       poster_path: posterPath
     })
     .then(response => {
       console.log('Filme adicionado aos favoritos com sucesso! ', response)
+      fetchFavorites(email, setFavArray)
     })
     .catch(error => console.error('Deu ruim: ', error))
   } else {
@@ -84,7 +81,8 @@ export const addFavorite = async (
 
 export const removeFavorite = async (
   email: string | null,
-  movieId: number
+  movieId: number,
+  setFavArray: FilterAny
 ) => {
   if (email != null) {
     axios.post(`${URL_BACK}/remove_favorite`, {
@@ -93,9 +91,28 @@ export const removeFavorite = async (
     })
       .then(response => {
         console.log('Filme removido dos favoritos com sucesso! ', response)
+        fetchFavorites(email, setFavArray)
       })
       .catch(error => console.error('Deu ruim: ', error))
     } else {
       alert('Faça o login primeiro!')
     }
+}
+  
+export const fetchFavorites = (
+  email: string | null, 
+  setFavArray: FilterAny
+) => {
+  if (email != null) {
+    axios.get(`${URL_BACK}/favorite_movies/${email}`)
+      .then(response => {
+        setFavArray(response.data)
+        console.log('Filmes favoritos recuperados com sucesso!')
+      })
+      .catch(error => {
+        console.error('Erro ao recuperar filmes favoritos: ', error)
+      })
+  } else {
+    console.log('Faça o login primeiro!')
   }
+}

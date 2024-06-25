@@ -27,7 +27,13 @@ export default function Idiomas({
 
   if ( desktop ) {
     return (
-      <form id='movie-language' {...restProps}>
+      <form id='movie-language' className={clsx(`
+        hidden grid-cols-4
+        w-max h-[3rem] px-[5rem] pt-[0.75rem] gap-[5rem]
+        bg-gradient-to-bl from-slate-300/30 to-slate-400/30 
+        backdrop-blur-sm shadow-lg rounded-2xl list-none 
+        md:grid
+      `, className)} {...restProps}>
 
           <input id='spanish' name='language' type='radio' defaultChecked onClick={() => filterIdioma('es')} />
           <label htmlFor='spanish' className='spanish'>

@@ -3,11 +3,9 @@ import './styles.css'
 import React, { useState } from 'react'
 import clsx from 'clsx'
 import { useModal } from '@/contexts/ModalContext'
-import { URL_BACK } from '@/services/api'
+import { fetchFavorites, URL_BACK } from '@/services/api'
 import axios from 'axios'
-import { redirect } from 'next/navigation'
 import { useUser } from '@/contexts/UserContext'
-import { revalidatePath } from 'next/cache'
 
 interface CadastroProps {
   className?: string
@@ -15,7 +13,7 @@ interface CadastroProps {
 //-- FUNCTION
 export default function Logar({className}: CadastroProps) {
   const { toggleModalLogin } = useModal()
-  const { filterEmail } = useUser()
+  const { changeLoggedMail, setFavArray } = useUser()
 
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -33,7 +31,8 @@ export default function Logar({className}: CadastroProps) {
       })
 
       if (response.data.status_code === 200) {
-        filterEmail(email)
+        changeLoggedMail(email)
+        fetchFavorites(email, setFavArray)
         toggleModalLogin()
       }
     } catch (error) {

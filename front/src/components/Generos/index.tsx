@@ -18,7 +18,13 @@ export default function Generos({
 
   if ( desktop ) {
     return (
-      <form id='movie-gender' className={clsx(`hidden flex-col`, className )} {...restProps}>
+      <form id='movie-gender' className={clsx(`
+        hidden grid-rows-4 fixed top-[14rem] left-[2rem]
+        w-[6rem] h-fit py-[2.5rem] px-[0.75rem] gap-[1rem]
+        bg-gradient-to-bl from-slate-300/30 to-slate-400/30 
+        backdrop-blur-sm shadow-lg rounded-2xl list-none 
+        md:grid
+      `, className)} {...restProps}>
   
           <input id='adventure' name='gender' type='radio' defaultChecked onClick={() => filterGenero(28)}/>
           <label htmlFor='adventure' className='adventure'>

@@ -9,12 +9,12 @@ import { useUser } from '@/contexts/UserContext'
 
 export default function Lista(ref: any) {
   const { Filmes } = useFiltro()
-  const { Favoritos } = useUser()
+  const { FavBoolean } = useUser()
   
   return (
     <section className='
       flex flex-col content-center 
-      py-[12rem] gap-8
+      mt-[2rem] py-[12rem] gap-8
       md:py-[12rem] md:pr-[6rem] md:pl-[11rem]
     '>
 
@@ -30,10 +30,10 @@ export default function Lista(ref: any) {
                 <Card
                   id={item.id}
                   poster={`${TMDB_IMG}/${item.poster_path}`}
-                  titulo={item.title}
-                  ano={item.release_date}
-                  idioma={item.original_language}
-                  nota={item.vote_average}
+                titulo={item.title}
+                ano={item.release_date}
+                idioma={item.original_language}
+                nota={item.vote_average}
                 />
               </li>
             ))) : (

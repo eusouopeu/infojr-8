@@ -14,7 +14,7 @@ CREATE TABLE "Movie" (
     "movie_id" INTEGER NOT NULL,
     "title" TEXT NOT NULL,
     "vote_average" REAL NOT NULL,
-    "release_date" INTEGER NOT NULL,
+    "release_year" INTEGER NOT NULL,
     "original_language" TEXT NOT NULL,
     "poster_path" TEXT NOT NULL,
     CONSTRAINT "Movie_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE

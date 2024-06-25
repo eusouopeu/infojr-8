@@ -13,8 +13,11 @@ import { SiPrivatedivision } from 'react-icons/si'
 import { useUser } from '@/contexts/UserContext'
 
 
-export const Card = ({ id, poster, titulo, ano, idioma, nota }: CardProps) => {
-  const { Favoritos } = useUser()
+export const Card = ({
+  id, poster, titulo, ano, idioma, nota
+}: CardProps) => {
+
+  const { FavBoolean } = useUser()
 
   let lingua
   switch (idioma) {
@@ -31,9 +34,9 @@ export const Card = ({ id, poster, titulo, ano, idioma, nota }: CardProps) => {
       lingua = alemao
       break
   }
-
-  const notaCorrigida = nota.toFixed(1)
-  const dataCorrigida = ano.slice(0, 4)
+  // .toFixed(1)
+  const notaCorrigida = nota
+  const dataCorrigida = ano.toString().length === 4 ? ano : ano.slice(0, 4)
 
 
   return (
@@ -59,7 +62,7 @@ export const Card = ({ id, poster, titulo, ano, idioma, nota }: CardProps) => {
 
       <div className='flex justify-between mt-[0.5rem] text-xs'>
         <button>Detalhes...</button>
-        <FavButton movieId={id} title={titulo} voteAverage={nota} releaseYear={parseInt(ano)} originalLanguage={idioma} posterPath={poster} />
+        <FavButton movieId={id} title={titulo} voteAverage={nota} releaseDate={parseInt(ano)} originalLanguage={idioma} posterPath={poster} />
       </div>
 
     </div>

@@ -18,7 +18,7 @@ export interface FavButtonProps {
   movieId: number
   title: string
   voteAverage: number
-  releaseYear: number
+  releaseDate: number
   originalLanguage: string
   posterPath: any
 }
@@ -67,8 +67,10 @@ export interface ModalContextType {
   toggleModalSignup: VoidFunction
 }
 export interface UserContextType {
-  Email: string | null
-  Favoritos: boolean
-  filterEmail: FilterAny
-  filterFavoritos: VoidFunction
+  LoggedMail: string | null
+  FavBoolean: boolean
+  FavArray: any[]
+  changeLoggedMail: FilterAny
+  filterFavBoolean: VoidFunction
+  setFavArray: FilterAny
 }

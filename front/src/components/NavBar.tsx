@@ -16,7 +16,7 @@ export default function NavBar({
   ...restProps
 }: IdProps) {
   const { toggleModalLogin, toggleModalSignup } = useModal()
-  const { Email, filterEmail } = useUser()
+  const { LoggedMail, changeLoggedMail } = useUser()
 
   return (
     <div className={clsx(`
@@ -28,10 +28,10 @@ export default function NavBar({
       desktop && `hidden md:flex`,
     className )} {...restProps}>
 
-      {Email != null ? (
+      {LoggedMail != null ? (
         <div className='flex flex-col gap-[0.75rem]'>
-          <Text as='p'> {Email} </Text>
-          <Btn type2 onClick={ () => filterEmail(null) }> Log out </Btn>
+          <Text as='p'> {LoggedMail} </Text>
+          <Btn type2 onClick={ () => changeLoggedMail(null) }> Log out </Btn>
         </div>
         ) : (
         <div className='flex flex-col gap-[0.75rem]'>

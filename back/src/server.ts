@@ -1,10 +1,10 @@
-import { PrismaClient } from '@prisma/client'
-import { Request, Response } from 'express'
-import cors from 'cors'
+import { PrismaClient } from "@prisma/client"
+import { Request, Response } from "express"
+import cors from "cors"
 import axios from 'axios'
 
 const API_URL = `https://api.themoviedb.org/3`
-const API_KEY = `e68628f5ff1c3314cd74c0ddba7a5819`
+const API_KEY = `04c35731a5ee918f014970082a0088b1`
 const prisma = new PrismaClient()
 
 const express = require('express')
@@ -25,7 +25,7 @@ app.get('/movie_list', async (req: Request, res: Response) => {
   res.send(list.data)
 })
 
-app.get('/movie_by_genre_and_language', async (req: Request, res: Response) => {
+app.get('/movie_by_genre', async (req: Request, res: Response) => {
   const genre = req.query.genre
   const language = req.query.language
   console.log(genre)
@@ -38,7 +38,7 @@ app.get('/movie_by_genre_and_language', async (req: Request, res: Response) => {
 app.get('/movie_by_title', async (req: Request, res: Response) => {
   console.log(req.query.title)
   const title_string = String(req.query.title)
-  const title = title_string.split(' ').join('+')
+  const title = title_string.split(" ").join("+")
   console.log(title)
   const url = `${API_URL}/search/movie?&api_key=${API_KEY}&query=${title}&with_original_languages=es|fr|it|de`
   console.log(url)
@@ -96,14 +96,14 @@ app.post('/login', async (req: Request, res: Response) => {
     },
   }) 
   console.log(user)
-  let message = ''
+  let message = ""
   let status_code
   if(user == null) {
-    console.log('credenciais de login incorretas')
-    message = 'credenciais de login incorretas'
+    console.log("credenciais de login incorretas")
+    message = "credenciais de login incorretas"
     status_code = 400
   } else {
-    message = 'login realizado com sucesso'
+    message = "login realizado com sucesso"
     status_code = 200
   }
   res.send(
@@ -115,17 +115,19 @@ app.post('/login', async (req: Request, res: Response) => {
 })
 
 app.post('/add_favorite', async (req: Request, res: Response) => {
-
-  console.log(req.body)
   const { email, movie_id, title, vote_average, release_date, original_language, poster_path } = req.body
-
   const findUser = await prisma.user.findUnique({
     where: {
       email: email
     }
   })
+  const findMovie = await prisma.movie.findUnique({
+    where: {
+      movie_id: parseInt(movie_id)
+    }
+  })
 
-  if (findUser) {
+  if (findUser && !findMovie) {
     const user_id = findUser.id
     const newFavorito = await prisma.movie.create({
       data: {
@@ -151,37 +153,29 @@ app.post('/add_favorite', async (req: Request, res: Response) => {
 })
 
 app.post('/remove_favorite', async (req: Request, res: Response) => {
-
-  console.log(req.body)
-  const {email, movie_id} = req.body
-
-
+  const { email, movie_id } = req.body
   const findUser = await prisma.user.findUnique({
     where: {
       email: email
     }
   })
-  const user_id = findUser?.id == undefined ? 0 : findUser.id  
-
   const findMovie = await prisma.movie.findFirst({
     where: {
-      user_id: user_id,
       movie_id: parseInt(movie_id)
     }
   })
 
-  const id = findMovie?.id 
+  if (findUser && findMovie) {
+    const removeMovie = await prisma.movie.delete({
+      where: {
+        movie_id: parseInt(movie_id),
+      },
+    })
+    res.send({
+      message: "movie removed from favorites succesfully"
+    })
+  }
 
-  const removeMovie = await prisma.movie.delete({
-    where: {
-      id:id
-    },
-  })
-
-  res.send({
-    message: 'movie removed from favorites succesfully',
-    movie: removeMovie
-  })
 })
 
 app.listen(port, () => {

@@ -20,7 +20,7 @@ const FiltroContext = createContext<FiltroContextType>(initialState)
 
 // Criando o provider
 export const FiltroProvider: React.FC<ContextProps> = ({ children }) => {
-  const { Email, Favoritos } = useUser()
+  const { LoggedMail, FavBoolean, FavArray, setFavArray } = useUser()
   
   const [Idioma, setIdioma] = useState('es')
   const [Genero, setGenero] = useState(28)
@@ -40,14 +40,14 @@ export const FiltroProvider: React.FC<ContextProps> = ({ children }) => {
   }
 
   useEffect(() => {
-    if (Email != null && Favoritos) {
-      fetchFavorites(Email, setFilmes)
+    if (FavBoolean) {
+      setFilmes(FavArray)
     } else if (Titulo != '') {
       fetchMoviesByTitle(Titulo, setFilmes)
     } else {
       fetchMoviesByGenre(Genero, Idioma, setFilmes)
     }
-  }, [Email, Favoritos, Idioma, Genero, Titulo])
+  }, [FavBoolean, Idioma, Genero, Titulo, FavArray, LoggedMail, setFavArray])
 
   return (
       <FiltroContext.Provider value={{ Idioma, Genero, Titulo, Filmes, filterIdioma, filterGenero, filterTitulo }}>

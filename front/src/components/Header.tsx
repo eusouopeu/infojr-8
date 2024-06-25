@@ -19,28 +19,30 @@ export default function Header() {
 
   return (
     <div className='
-      z-10 fixed flex flex-col
-      w-screen h-fit p-[1rem] gap-[2rem]
+      z-10 fixed flex flex-col gap-[1.5rem]
+      w-screen h-fit py-[0.5rem] px-[1rem] 
       bg-black
       md:justify-start
     '>
 
       <div className='
-        flex items-center justify-between items-end
-        w-full h-fit gap-[1rem]
-        md:flex-row md:pr-[4rem] md:pl-0 md:justify-start
+        flex justify-between items-baseline
+        w-[90%] mx-[4%] h-fit gap-[1rem]
+        md:w-fit md:my-[1rem] md:mx-0 md:justify-start
       '>
         <Text as='h1' className='w-min h-min font-extrabold'>
           Cine<span className='text-red-700'>Glota</span>
         </Text>
 
-        <FavFilter />
-        <HMButton />
+        <div className='flex gap-[1rem] items-baseline'>
+          <FavFilter />
+          <HMButton />
+        </div>
 
         <Idiomas desktop />
-
-        <HMenu className={clsx( HMenuPrincipal && 'opacity-100 transition-all duration-1000' )} />
       </div>  
+      
+      <HMenu className={clsx(HMenuPrincipal && 'opacity-100 transition-all duration-1000')} />
 
       <div className='
         justify-self-end flex flex-col justify-between items-end

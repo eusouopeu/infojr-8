@@ -9,13 +9,12 @@ import { useUser } from '@/contexts/UserContext'
 
 export default function Lista(ref: any) {
   const { Filmes } = useFiltro()
-  const { FavBoolean } = useUser()
   
   return (
     <section className='
       flex flex-col content-center 
       mt-[2rem] py-[12rem] gap-8
-      md:py-[12rem] md:pr-[6rem] md:pl-[11rem]
+      md:py-[12rem] md:pr-[6rem] md:pl-[13rem]
     '>
 
       <ul className='

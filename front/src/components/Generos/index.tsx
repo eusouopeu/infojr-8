@@ -6,6 +6,7 @@ import { useFiltro } from '@/contexts/FiltroContext'
 import { useHMenu } from '@/contexts/HMenuContext'
 import { IdProps } from '@/types'
 import clsx from 'clsx'
+import { useUser } from '@/contexts/UserContext'
 
 
 export default function Generos({
@@ -13,41 +14,82 @@ export default function Generos({
   desktop = false,
   ...restProps
 }: IdProps) {
-  const { filterGenero } = useFiltro()
+  const { Titulo, filterGenero } = useFiltro()
   const { HMenuGeneros, toggleHMenuGeneros } = useHMenu()
+  const { FavBoolean } = useUser()
 
-  if ( desktop ) {
+  if (desktop) {
     return (
       <form id='movie-gender' className={clsx(`
-        hidden grid-rows-4 fixed top-[14rem] left-[2rem]
-        w-[6rem] h-fit py-[2.5rem] px-[0.75rem] gap-[1rem]
+        hidden grid-rows-4 fixed top-[12.5rem] left-[2rem]
+        w-[7rem] h-[19rem] py-[2.5rem] px-[1.75rem] gap-[1rem]
         bg-gradient-to-bl from-slate-300/30 to-slate-400/30 
         backdrop-blur-sm shadow-lg rounded-2xl list-none 
         md:grid
       `, className)} {...restProps}>
-  
-          <input id='adventure' name='gender' type='radio' defaultChecked onClick={() => filterGenero(28)}/>
-          <label htmlFor='adventure' className='adventure'>
-              Aventura
-          </label>
         
-          <input id='comedy' name='gender' value='comedy' type='radio' onClick={() => filterGenero(35)}/>
-          <label htmlFor='comedy' className='comedy'>
-              Comédia
-          </label>
-  
-          <input id='drama' name='gender' value='drama' type='radio' onClick={() => filterGenero(18)}/>
-          <label htmlFor='drama' className='drama'>
-            Drama
-          </label>   
-  
-          <input id='thriller' name='gender' value='thriller' type='radio' onClick={() => filterGenero(53)}/>
-          <label htmlFor='thriller' className='thriller'>
-              Suspense
-          </label>
-  
-          <div className='indicador-genero'></div>
-  
+        <input id='adventure' className={clsx(`
+            hidden
+          `,
+            !(FavBoolean || Titulo !== '') && `ativo`
+        )} name='gender' type='radio' defaultChecked onClick={() => filterGenero(28)} />
+        <label htmlFor='adventure' className='
+          z-50 flex flex-col 
+          py-[0.75rem] gap-[2rem] 
+          text-xs duration-500
+        '>
+          Aventura
+        </label>
+        
+        <input id='comedy' className={clsx(`
+            hidden
+          `,
+            !(FavBoolean || Titulo !== '') && `ativo`
+        )} name='gender' type='radio' onClick={() => filterGenero(35)} />
+        <label htmlFor='comedy' className='
+          z-50 flex flex-col 
+          py-[0.75rem] gap-[2rem] 
+          text-xs duration-500
+        '>
+          Comédia
+        </label>
+
+        <input id='drama' className={clsx(`
+            hidden
+          `,
+            !(FavBoolean || Titulo !== '') && `ativo`
+        )} name='gender' value='drama' type='radio' onClick={() => filterGenero(18)} />
+        <label htmlFor='drama' className='
+          z-50 flex flex-col 
+          py-[0.75rem] gap-[2rem] 
+          text-xs duration-500
+        '>
+          Drama
+        </label>
+
+        <input id='thriller' className={clsx(`
+            hidden
+          `,
+            !(FavBoolean || Titulo !== '') && `ativo`
+        )} name='gender' value='thriller' type='radio' onClick={() => filterGenero(53)} />
+        <label htmlFor='thriller' className='
+          z-50 flex flex-col 
+          py-[0.75rem] gap-[2rem] 
+          text-xs duration-500
+        '>
+          Suspense
+        </label>
+
+      { !(FavBoolean || Titulo !== '') && (
+        <div className='
+          indicador-genero 
+          z-10 absolute top-[2.4rem] left-[1.4rem] 
+          w-[8rem] h-[3rem] 
+          bg-gradient-to-br from-red-500 to-red-900 
+          border-8 border-black rounded-full
+        '></div>
+      )}
+
       </form>
     )
 

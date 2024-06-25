@@ -10,9 +10,9 @@ export default function FavFilter() {
   return (
     <button className={clsx(`
       flex opacity-0
-      m-[1rem] p-[1rem] 
-      bg-gradient-to-br from-slate-500/30 to-slate-400/30 
-      shadow-md shadow-red-500 rounded-full
+      p-[0.5rem] 
+      bg-gradient-to-br from-slate-500/30 to-slate-400/30
+      rounded-full md:p-[1rem]
       `,
       LoggedMail && 'opacity-100',
     )} onClick = { () => filterFavBoolean() } >

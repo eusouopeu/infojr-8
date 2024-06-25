@@ -98,7 +98,7 @@ export default function Generos({
       <li className='*:w-full'>
         <button className='bg-slate-800  p-[0.5rem]' onClick={toggleHMenuGeneros}> Gêneros </button>
         {HMenuGeneros && (
-          <ul>
+          <ul className='border-b-2 border-slate-800'>
             <li>
               <button className='
                 w-full p-[0.5rem]
@@ -107,21 +107,27 @@ export default function Generos({
               ' onClick={ () => filterGenero(28) }>
                 Aventura
               </button>
+            </li>
 
+            <li>
               <button className='
                 w-full p-[0.5rem]
                 hover:shadow-xl hover:bg-red-800 focus:shadow-xl focus:bg-red-800
               ' onClick={ () => filterGenero(35) }>
                 Comédia
               </button>
+            </li>
 
+            <li>
               <button className='
                 w-full p-[0.5rem]
                 hover:shadow-xl hover:bg-red-800 focus:shadow-xl focus:bg-red-800
               ' onClick={ () => filterGenero(18) }>
                 Drama
               </button>
+            </li>
 
+            <li>
               <button className='
                 w-full p-[0.5rem]
                 hover:shadow-xl hover:bg-red-800 focus:shadow-xl focus:bg-red-800

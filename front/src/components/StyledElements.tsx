@@ -19,11 +19,11 @@ export const Btn = ({
   return (
     <button className={clsx(`
       w-full px-[1rem] py-[0.25rem] 
-      shadow-md shadow-red-800 rounded-full text-center
-      md:w-[9rem]
+      rounded-full text-center
+      md:w-[9rem] md:shadow-md md:shadow-red-800 
     `,
-      type1 && `bg-gradient-to-br from-rose-500/50 to-red-600/50`,
-      type2 && `border-2 border-y-red-600/50 border-x-rose-500/50`,
+      type1 && `bg-gradient-to-br from-rose-700 to-red-800`,
+      type2 && `border-2 border-y-red-700 border-x-rose-800`,
     className )} onClick={onClick}>
       {children}
     </button>

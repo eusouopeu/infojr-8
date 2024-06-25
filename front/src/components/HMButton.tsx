@@ -12,16 +12,15 @@ export default function HMenuButton() {
     <button className='md:hidden' onClick={toggleHMenuPrincipal}>
 
       <IoMdClose className={clsx(`
-          opacity-0 -z-10
+          opacity-0
           fill-white scale-[2.5]
           transition-all duration-1000
-        `, HMenuPrincipal && 'opacity-100 z-10' )} />
+        `, HMenuPrincipal && 'opacity-100' )} />
 
       <IoMdMenu className={clsx(`
-          z-10
           fill-white scale-[2.5]
           transition-all duration-1000
-        `, HMenuPrincipal && 'opacity-0 -z-10' )} />
+        `, HMenuPrincipal && 'opacity-0' )} />
 
     </button>
   )

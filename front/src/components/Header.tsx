@@ -41,8 +41,6 @@ export default function Header() {
 
         <Idiomas desktop />
       </div>  
-      
-      <HMenu className={clsx(HMenuPrincipal && 'opacity-100 transition-all duration-1000')} />
 
       <div className='
         justify-self-end flex flex-col justify-between items-end

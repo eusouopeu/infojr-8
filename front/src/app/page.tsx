@@ -2,17 +2,20 @@
 import React from 'react'
 //-- CONTEXTs
 import { useModal } from '@/contexts/ModalContext'
+import { useHMenu } from '@/contexts/HMenuContext'
 //-- COMPONENTs
 import Header from '@/components/Header'
 import Generos from '@/components/Generos'
 import Logar from '@/components/Logar'
 import Cadastro from '@/components/Cadastro'
 import Lista from '@/components/Lista'
-import Text from '@/components/Text'
+import HMenu from '@/components/HMenu'
+import clsx from 'clsx'
 
 
 export default function Home() {
   const { ModalLogin, ModalSignup } = useModal()
+  const { HMenuPrincipal } = useHMenu()
 
 
   return (
@@ -21,6 +24,7 @@ export default function Home() {
     '>
 
       <Header />
+      <HMenu className={clsx(HMenuPrincipal && 'opacity-100 transition-all duration-1000')} />
       <Generos desktop className='md:flex'/>    
 
       <Lista />
